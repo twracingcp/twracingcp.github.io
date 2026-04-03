@@ -1,0 +1,120 @@
+/* style.css */
+:root {
+    --racing-green: #00d26a; /* Un verde vibrante y moderno */
+    --bg-dark: #121513; /* Fondo muy oscuro, casi negro, con un ligero tono verde */
+    --card-bg: #1a1e1b;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-dark);
+    color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, .navbar-brand, .btn {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+}
+
+/* Colores personalizados */
+.text-racing { color: var(--racing-green) !important; }
+.bg-racing { background-color: var(--racing-green) !important; color: #000 !important; }
+
+/* Botones */
+.btn-racing {
+    background-color: var(--racing-green);
+    color: #000;
+    font-weight: 700;
+    border: 2px solid var(--racing-green);
+    border-radius: 4px;
+    padding: 10px 24px;
+    transition: all 0.3s ease;
+}
+
+.btn-racing:hover {
+    background-color: transparent;
+    color: var(--racing-green);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 210, 106, 0.4);
+}
+
+/* Navbar */
+.navbar-custom {
+    background-color: rgba(18, 21, 19, 0.95);
+    border-bottom: 2px solid var(--racing-green);
+}
+
+/* Hero Section (Fondo principal) */
+.hero-section {
+    /* Reemplaza esta URL con una buena captura de tu equipo en FC26 */
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(18, 21, 19, 1)), url('https://images.unsplash.com/photo-1518605368461-1ee7c5108dd5?q=80&w=2070&auto=format&fit=crop') center/cover;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    text-shadow: 0 0 20px rgba(0, 210, 106, 0.5);
+}
+
+/* Tarjetas (Cards) */
+.card-custom {
+    background-color: var(--card-bg);
+    border: 1px solid #2d332f;
+    border-radius: 8px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card-custom:hover {
+    transform: translateY(-5px);
+    border-color: var(--racing-green);
+}
+
+/* Jugadores */
+.player-card img {
+    border-bottom: 3px solid var(--racing-green);
+}
+/* Estilos específicos para la Galería */
+.gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background-color: var(--card-bg);
+}
+
+.gallery-item img {
+    transition: transform 0.5s ease;
+    width: 100%;
+    height: 250px; /* Altura fija para que todas se vean alineadas */
+    object-fit: cover; /* Recorta la imagen para que llene el espacio sin deformarse */
+}
+
+.gallery-item:hover {
+    border-color: var(--racing-green);
+    box-shadow: 0 0 15px rgba(0, 210, 106, 0.3);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1); /* Efecto zoom */
+}
+
+.gallery-title {
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.gallery-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--racing-green);
+}
