@@ -49,7 +49,7 @@
     <header class="py-5 text-center" style="background: linear-gradient(to bottom, #0d0f0e, #1a1e1b);">
         <div class="container">
             <h1 class="display-4 fw-bold text-white glow-text mb-3">CALENDARIO Y <span class="text-racing">RESULTADOS</span></h1>
-            <p class="text-light opacity-75 fs-5 mb-0">Sigue la trayectoria de TW Cantabria en todas las competiciones</p>
+            <p class="text-light opacity-75 fs-5 mb-0">Sigue la trayectoria de TW Racing y TW Cantabria en todas las competiciones</p>
         </div>
     </header>
 
@@ -57,8 +57,9 @@
         
         <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
             <button class="btn filter-btn active px-4" onclick="filtrarPartidos('todos', this)">Todos</button>
-            <button class="btn filter-btn px-4" onclick="filtrarPartidos('klplg', this)">KLPLG</button>
+            <button class="btn filter-btn px-4" onclick="filtrarPartidos('klplg', this)">KLPLG League</button>
             <button class="btn filter-btn px-4" onclick="filtrarPartidos('cup', this)">KLPLG CUP</button>
+            <button class="btn filter-btn px-4" onclick="filtrarPartidos('Regions', this)">KLPLG Regions</button>
             <button class="btn filter-btn px-4" onclick="filtrarPartidos('amistoso', this)">Amistosos</button>
         </div>
 
@@ -66,17 +67,17 @@
             <div class="col-lg-10">
                 <div class="list-group gap-3">
                     
-                    <div class="list-group-item match-card proximo p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded" data-competicion="klplg">
+                    <div class="list-group-item match-card proximo p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded" data-competicion="cup">
                         <div class="text-center text-md-start" style="min-width: 150px;">
                             <span class="badge bg-racing text-dark mb-2 px-2 py-1"><i class="fa-regular fa-clock me-1"></i>PRÓXIMO PARTIDO</span>
-                            <h6 class="text-white mb-1">KLPLG - Jornada 14</h6>
-                            <p class="mb-0 text-light opacity-50 small"><i class="fa-regular fa-calendar me-1"></i>Hoy - 22:30H</p>
+                            <h6 class="text-white mb-1">KLPLG Cup - Octavos de final</h6>
+                            <p class="mb-0 text-light opacity-50 small"><i class="fa-regular fa-calendar me-1"></i>10 de Abril - 22:30H</p>
                         </div>
                         
                         <div class="d-flex align-items-center justify-content-center gap-3 fw-bold fs-4 flex-grow-1">
-                            <span class="text-end" style="width: 120px;">TW Cantabria</span>
+                            <span class="text-end" style="width: 120px;">TW Racing</span>
                             <div class="bg-dark px-3 py-1 rounded border border-secondary border-opacity-50 text-light fs-5">VS</div>
-                            <span class="text-start text-secondary" style="width: 120px;">Rival FC</span>
+                            <span class="text-start text-secondary" style="width: 120px;">TW Valencia</span>
                         </div>
                         
                         <div class="text-center text-md-end" style="min-width: 120px;">
@@ -84,10 +85,10 @@
                         </div>
                     </div>
 
-                    <div class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded" data-competicion="cup">
+                    <div class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded" data-competicion="Regions">
                         <div class="text-center text-md-start" style="min-width: 150px;">
                             <span class="badge bg-secondary mb-2 px-2 py-1"><i class="fa-solid fa-trophy text-warning me-1"></i>FINAL</span>
-                            <h6 class="text-white mb-1">KLPLG Regions Cup</h6>
+                            <h6 class="text-white mb-1">KLPLG Regions</h6>
                             <p class="mb-0 text-light opacity-50 small"><i class="fa-regular fa-calendar-check me-1"></i>29 Dic 2025</p>
                         </div>
                         
