@@ -4,189 +4,225 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plantilla | TW Racing</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top py-3">
+    <style>
+        .glow-text { text-shadow: 0 0 15px rgba(0, 210, 106, 0.6); }
+        .player-card { 
+            transition: all 0.3s ease; 
+            background-color: #1a1e1b; 
+            border: 1px solid #2d332f !important;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .player-card:hover { 
+            transform: translateY(-8px); 
+            border-color: #00d26a !important; 
+            box-shadow: 0 10px 25px rgba(0, 210, 106, 0.3); 
+        }
+        .position-badge {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .section-title { border-color: #2d332f !important; }
+    </style>
+</head>
+<body style="background-color: #0d0f0e;">
+
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top py-3 shadow-sm">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-               <img src="img/logoconBandera.png" alt="Logo TW Racing" width="40" height="40" class="rounded-circle object-fit-cover bg-light">
-                <span class="fs-4">TW <span class="text-racing">RACING</span></span>
+                <img src="img/logoconBandera.png" alt="Logo TW Racing" width="40" height="40" class="rounded-circle object-fit-cover bg-light p-1">
+                <span class="fs-4">TW <span class="text-racing fw-bold">RACING</span></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav gap-3">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="plantilla.html">Plantilla</a></li>
-                    <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                <ul class="navbar-nav gap-3 text-uppercase fw-bold">
+                    <li class="nav-item"><a class="nav-link text-white" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link active text-racing" href="plantilla.html">Plantilla</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="partidos.html">Partidos</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="galeria.html">Galería</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <header class="py-5 text-center" style="background: linear-gradient(to bottom, #0d0f0e, #1a1e1b);">
+        <div class="container">
+            <h1 class="display-4 fw-bold text-white glow-text mb-3">NUESTRA <span class="text-racing">PLANTILLA</span></h1>
+            <p class="text-light opacity-75 fs-5 mb-0">Los protagonistas que defienden el escudo en el césped virtual</p>
+        </div>
+    </header>
+
     <main class="container py-5">
-        <h2 class="text-center mb-5 display-5 fw-bold">NUESTRA <span class="text-racing">PLANTILLA</span></h2>
-            <!-- --------------------------------------------------------------------------- -->
-        <h3 class="border-bottom border-secondary pb-2 mb-4">Delanteros</h3>
-        <div class="row g-4 mb-5">
-            <div class="col-md-4 col-lg-3">
-                <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">EI</span>
-                        <h4 class="card-title mt-2">Hidalgo</h4>
-                        <p class="text-muted mb-0"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-lg-3">
-                <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">EI</span>
-                        <h4 class="card-title mt-2">Marcos</h4>
-                        <p class="text-muted mb-0"></p>
-                    </div>
-                </div>
-            </div>
-            <!-- ---------------------------------------------------------------------------------------------------------------------- -->
-            <div class="col-md-4 col-lg-3">
-                <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">DC</span>
-                        <h4 class="card-title mt-2">GxlDeAndres</h4>
-                        <p class="text-muted mb-0"></p>
-                    </div>
-                </div>
-            </div>
-            <!-- ---------------------------------------------------------------------------------------------------------------------- -->
-            <div class="col-md-4 col-lg-3">
-                <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">ED</span>
-                        <h4 class="card-title mt-2">Hombre Cojin</h4>
-                        <p class="text-muted mb-0"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <!-- --------------------------------------------------------------------------- -->
-        <h3 class="border-bottom border-secondary pb-2 mb-4">Centrocampistas</h3>
-        <div class="row g-4 mb-5">
-            <div class="col-md-4 col-lg-3">
-                <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">MC</span>
-                        <h4 class="card-title mt-2">PEDSAN</h4>
-                        <p class="text-muted mb-0"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-lg-3">
-                <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">MCO</span>
-                        <h4 class="card-title mt-2">BOOLS</h4>
-                        <p class="text-muted mb-0"></p>
-                    </div>
-                </div>
-            </div>
-            <!-- ---------------------------------------------------------------------------------------------------------------------- -->
-            <div class="col-md-4 col-lg-3">
-                <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">MC</span>
-                        <h4 class="card-title mt-2">Rodri</h4>
-                        <p class="text-muted mb-0"></p>
-                    </div>
-                </div>
-            </div>
-            <!-- ---------------------------------------------------------------------------------------------------------------------- -->
-
-        <!-- --------------------------------------------------------------------------- -->
-        <h3 class="border-bottom border-secondary pb-2 mb-4">DEFENSAS</h3>
-        <div class="row g-4 mb-5">
-
-            <div class="col-md-4 col-lg-3">
-                <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">LI</span>
-                        <h4 class="card-title mt-2">Mudkip</h4>
-                        <p class="text-muted mb-0"></p>
-                    </div>
-                </div>
-            </div>
-<!-- ---------------------------------------------------------------------------------------------------------------------- -->
-            <div class="col-md-4 col-lg-3">
-                <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">DFC</span>
-                        <h4 class="card-title mt-2">JMorgu</h4>
-                        <p class="text-muted mb-0"></p>
-                    </div>
-                </div>
-            </div>
-<!-- ---------------------------------------------------------------------------------------------------------------------- -->
-            <div class="col-md-4 col-lg-3">
-                <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">DFC</span>
-                        <h4 class="card-title mt-2">Javi</h4>
-                        <p class="text-muted mb-0"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-lg-3">
-                <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">DFC</span>
-                        <h4 class="card-title mt-2">Anacorro</h4>
-                        <p class="text-muted mb-0"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-<!-- ---------------------------------------------------------------------------------------------------------------------- -->
-            <div class="col-md-4 col-lg-3">
-                <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">LD</span>
-                        <h4 class="card-title mt-2">hectorsanmi</h4>
-                        <p class="text-muted mb-0"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         
-        <!-- ---------------------------------------------------------------------------------------------------------------------- -->
-        <h3 class="border-bottom border-secondary pb-2 mb-4">PORTEROS</h3>
+        <h3 class="border-bottom section-title text-white pb-2 mb-4">
+            <i class="fa-solid fa-bolt text-racing me-2"></i>Delanteros
+        </h3>
         <div class="row g-4 mb-5">
             <div class="col-md-4 col-lg-3">
                 <div class="card card-custom player-card text-center h-100">
-                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="200" alt="Jugador">
-                    <div class="card-body position-relative">
-                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark">POR</span>
-                        <h4 class="card-title mt-2">DemboPelaez</h4>
-                        <p class="text-muted mb-0"></p>
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="Hidalgo">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">EI</span>
+                        <h4 class="card-title text-white fw-bold mt-2">Hidalgo</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">91 GRL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom player-card text-center h-100">
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="Marcos">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">EI</span>
+                        <h4 class="card-title text-white fw-bold mt-2">Marcos</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">89 GRL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom player-card text-center h-100">
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="GxlDeAndres">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">DC</span>
+                        <h4 class="card-title text-white fw-bold mt-2">GxlDeAndres</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">92 GRL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom player-card text-center h-100">
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="Hombre Cojin">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">ED</span>
+                        <h4 class="card-title text-white fw-bold mt-2">Hombre Cojin</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">90 GRL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="border-bottom section-title text-white pb-2 mb-4">
+            <i class="fa-solid fa-compass text-racing me-2"></i>Centrocampistas
+        </h3>
+        <div class="row g-4 mb-5">
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom player-card text-center h-100">
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="PEDSAN">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">MC</span>
+                        <h4 class="card-title text-white fw-bold mt-2">PEDSAN</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">88 GRL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom player-card text-center h-100">
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="BOOLS">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">MCO</span>
+                        <h4 class="card-title text-white fw-bold mt-2">BOOLS</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">90 GRL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom player-card text-center h-100">
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="Rodri">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">MC</span>
+                        <h4 class="card-title text-white fw-bold mt-2">Rodri</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">89 GRL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="border-bottom section-title text-white pb-2 mb-4">
+            <i class="fa-solid fa-shield-halved text-racing me-2"></i>Defensas
+        </h3>
+        <div class="row g-4 mb-5">
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom player-card text-center h-100">
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="Mudkip">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">LI</span>
+                        <h4 class="card-title text-white fw-bold mt-2">Mudkip</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">87 GRL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom player-card text-center h-100">
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="JMorgu">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">DFC</span>
+                        <h4 class="card-title text-white fw-bold mt-2">JMorgu</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">89 GRL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom player-card text-center h-100">
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="Javi">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">DFC</span>
+                        <h4 class="card-title text-white fw-bold mt-2">Javi</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">90 GRL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom player-card text-center h-100">
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="Anacorro">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">DFC</span>
+                        <h4 class="card-title text-white fw-bold mt-2">Anacorro</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">88 GRL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom player-card text-center h-100">
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="hectorsanmi">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">LD</span>
+                        <h4 class="card-title text-white fw-bold mt-2">hectorsanmi</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">87 GRL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="border-bottom section-title text-white pb-2 mb-4">
+            <i class="fa-solid fa-hands text-racing me-2"></i>Porteros
+        </h3>
+        <div class="row g-4 mb-5">
+            <div class="col-md-4 col-lg-3">
+                <div class="card card-custom player-card text-center h-100">
+                    <img src="img/HC.jpg" class="card-img-top object-fit-cover" height="220" alt="DemboPelaez">
+                    <div class="card-body position-relative pt-4">
+                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-racing text-dark fs-6 border border-dark px-3 py-2 position-badge">POR</span>
+                        <h4 class="card-title text-white fw-bold mt-2">DemboPelaez</h4>
+                        <span class="badge bg-dark border border-secondary text-light mt-1">91 GRL</span>
                     </div>
                 </div>
             </div>
@@ -194,8 +230,15 @@
 
     </main>
 
-    <footer class="text-center py-4 mt-5 border-top border-secondary">
-        <div class="container text-muted"><p class="mb-0">&copy; 2026 TW Racing eSports.</p></div>
+    <footer class="text-center py-5 mt-5" style="background-color: #0d0f0e; border-top: 1px solid #2d332f;">
+        <div class="container text-light opacity-75">
+            <div class="d-flex justify-content-center gap-4 mb-4 fs-4">
+                <a href="https://twitter.com/TwRacingCP" target="_blank" class="text-light hover-racing" style="transition: 0.3s;"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://twitch.tv/twcantabria" target="_blank" class="text-light hover-racing" style="transition: 0.3s;"><i class="fab fa-twitch"></i></a>
+                <a href="https://www.youtube.com/@TWCantabria" target="_blank" class="text-light hover-racing" style="transition: 0.3s;"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="mb-0 fw-bold">© 2026 TW Racing eSports</p>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
