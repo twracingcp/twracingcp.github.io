@@ -1,180 +1,968 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Partidos y Resultados | TW Racing</title>
-    <link rel="icon" href="img/Proyecto nuevo.jpg" type="image/x-icon">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/Proyecto nuevo.jpg" type="image/x-icon" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
 
     <style>
-        .glow-text { text-shadow: 0 0 15px rgba(0, 210, 106, 0.6); }
-        .score-box { box-shadow: 0 0 15px rgba(0, 210, 106, 0.2); }
-        .match-card { transition: all 0.3s ease; background-color: #1a1e1b; border: 1px solid #2d332f; }
-        .match-card:hover { transform: translateY(-3px); border-color: #00d26a; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); }
-        .match-card.proximo { border: 2px solid #00d26a; background-color: #121513; }
-        
-        /* Botones del filtro */
-        .filter-btn { border-color: #2d332f; color: #fff; }
-        .filter-btn:hover, .filter-btn.active { background-color: #00d26a; color: #000; border-color: #00d26a; font-weight: bold; }
-    </style>
-</head>
-<body>
+      .glow-text {
+        text-shadow: 0 0 15px rgba(0, 210, 106, 0.6);
+      }
+      .score-box {
+        box-shadow: 0 0 15px rgba(0, 210, 106, 0.2);
+      }
+      .match-card {
+        transition: all 0.3s ease;
+        background-color: #1a1e1b;
+        border: 1px solid #2d332f;
+      }
+      .match-card:hover {
+        transform: translateY(-3px);
+        border-color: #00d26a;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      }
+      .match-card.proximo {
+        border: 2px solid #00d26a;
+        background-color: #121513;
+      }
+      .filter-btn {
+        border-color: #2d332f;
+        color: #fff;
+      }
+      .filter-btn:hover,
+      .filter-btn.active {
+        background-color: #00d26a;
+        color: #000;
+        border-color: #00d26a;
+        font-weight: bold;
+      }
+      .team-logo {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
 
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top py-3 shadow-sm">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-                <img src="img/logoconBandera.png" alt="Logo TW Racing" width="40" height="40" class="rounded-circle object-fit-cover bg-light p-1">
-                <span class="fs-4">TW <span class="text-racing fw-bold">RACING</span></span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav gap-3 text-uppercase fw-bold">
-                    <li class="nav-item"><a class="nav-link text-white" href="index.html">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="plantilla.html">Plantilla</a></li>
-                    <li class="nav-item"><a class="nav-link active text-racing" href="partidos.html">Partidos</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="galeria.html">Galería</a></li>
-                </ul>
-            </div>
+      /* --- NUEVA SOLUCIÓN DE ALINEACIÓN --- */
+      .match-row-container {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .match-team-left {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        text-align: right;
+        gap: 15px;
+      }
+
+      .match-score {
+        width: 120px; /* Ancho fijo para que el centro nunca se mueva */
+        display: flex;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .match-team-right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: left;
+        gap: 15px;
+      }
+
+      @media (max-width: 768px) {
+        .match-row-container {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .match-team-left,
+        .match-team-right {
+          justify-content: center;
+          text-align: center;
+          width: 100%;
+        }
+      }
+      /* ------------------------------------ */
+
+      /* Estilos Pizarra Táctica */
+      .border-racing {
+        border: 1px solid #00d26a !important;
+      }
+      .pitch {
+        background: #1e4d2b;
+        height: 450px;
+        position: relative;
+        border-radius: 5px;
+        border: 3px solid rgba(255, 255, 255, 0.2);
+        overflow: hidden;
+      }
+      .pitch-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+          linear-gradient(
+            to bottom,
+            transparent 49%,
+            rgba(255, 255, 255, 0.2) 50%,
+            transparent 51%
+          ),
+          radial-gradient(
+            circle at 50% 50%,
+            transparent 40px,
+            rgba(255, 255, 255, 0.2) 41%,
+            transparent 42%
+          );
+      }
+      .player-dot {
+        width: 24px;
+        height: 24px;
+        background: #00d26a;
+        color: #000;
+        border-radius: 50%;
+        position: absolute;
+        font-size: 11px;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+      }
+      .player-name {
+        position: absolute;
+        top: 22px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 9px;
+        white-space: nowrap;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px black;
+      }
+      .modal-content-racing {
+        background-color: #121513;
+        border: 1px solid #00d26a;
+      }
+      .bg-racing {
+        background-color: #00d26a !important;
+      }
+      .text-racing {
+        color: #00d26a !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top py-3 shadow-sm"
+    >
+      <div class="container">
+        <a
+          class="navbar-brand d-flex align-items-center gap-2"
+          href="index.html"
+        >
+          <img
+            src="img/logoconBandera.png"
+            alt="Logo TW Racing"
+            width="40"
+            height="40"
+            class="rounded-circle bg-light p-1"
+          />
+          <span class="fs-4"
+            >TW <span class="text-racing fw-bold">RACING</span></span
+          >
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav gap-3 text-uppercase fw-bold">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="plantilla.html">Plantilla</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-racing" href="partidos.html"
+                >Partidos</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="galeria.html">Galería</a>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
-    <header class="py-5 text-center" style="background: linear-gradient(to bottom, #0d0f0e, #1a1e1b);">
-        <div class="container">
-            <h1 class="display-4 fw-bold text-white glow-text mb-3">CALENDARIO Y <span class="text-racing">RESULTADOS</span></h1>
-            <p class="text-light opacity-75 fs-5 mb-0">Sigue la trayectoria de TW Racing y TW Cantabria en todas las competiciones</p>
-        </div>
+    <header
+      class="py-5 text-center"
+      style="background: linear-gradient(to bottom, #0d0f0e, #1a1e1b)"
+    >
+      <div class="container">
+        <h1 class="display-4 fw-bold text-white glow-text mb-3">
+          CALENDARIO Y <span class="text-racing">RESULTADOS</span>
+        </h1>
+        <p class="text-light opacity-75 fs-5">
+          Sigue la trayectoria de TW Racing y TW Cantabria en todas las
+          competiciones
+        </p>
+      </div>
     </header>
 
     <main class="container py-5">
-        
-        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
-            <button class="btn filter-btn active px-4" onclick="filtrarPartidos('todos', this)">Todos</button>
-            <button class="btn filter-btn px-4" onclick="filtrarPartidos('klplg', this)">KLPLG League</button>
-            <button class="btn filter-btn px-4" onclick="filtrarPartidos('cup', this)">KLPLG CUP</button>
-            <button class="btn filter-btn px-4" onclick="filtrarPartidos('Regions', this)">KLPLG Regions</button>
-            <button class="btn filter-btn px-4" onclick="filtrarPartidos('amistoso', this)">Amistosos</button>
-        </div>
+      <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
+        <button
+          class="btn filter-btn active px-4"
+          onclick="filtrarPartidos('todos', this)"
+        >
+          Todos
+        </button>
+        <button
+          class="btn filter-btn px-4"
+          onclick="filtrarPartidos('klplg', this)"
+        >
+          KLPLG League
+        </button>
+        <button
+          class="btn filter-btn px-4"
+          onclick="filtrarPartidos('cup', this)"
+        >
+          KLPLG CUP
+        </button>
+        <button
+          class="btn filter-btn px-4"
+          onclick="filtrarPartidos('Regions', this)"
+        >
+          KLPLG Regions
+        </button>
+        <button
+          class="btn filter-btn px-4"
+          onclick="filtrarPartidos('amistoso', this)"
+        >
+          Amistosos
+        </button>
+      </div>
 
-        <div class="row justify-content-center" id="contenedor-partidos">
-            <div class="col-lg-10">
-                <div class="list-group gap-3">
-                    
-                    <div class="list-group-item match-card proximo p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded" data-competicion="cup">
-                        <div class="text-center text-md-start" style="min-width: 150px;">
-                            <span class="badge bg-racing text-dark mb-2 px-2 py-1"><i class="fa-regular fa-clock me-1"></i>PRÓXIMO PARTIDO</span>
-                            <h6 class="text-white mb-1">KLPLG Cup - Octavos de final</h6>
-                            <p class="mb-0 text-light opacity-50 small"><i class="fa-regular fa-calendar me-1"></i>10 de Abril - 22:30H</p>
-                        </div>
-                        
-                        <div class="d-flex align-items-center justify-content-center gap-3 fw-bold fs-4 flex-grow-1">
-                            <span class="text-end" style="width: 120px;">TW Racing</span>
-                            <div class="bg-dark px-3 py-1 rounded border border-secondary border-opacity-50 text-light fs-5">VS</div>
-                            <span class="text-start text-secondary" style="width: 120px;">TW Valencia</span>
-                        </div>
-                        
-                        <div class="text-center text-md-end" style="min-width: 120px;">
-                            <button class="btn btn-racing btn-sm fw-bold w-100"><i class="fa-solid fa-bullhorn me-1"></i>Previa</button>
-                        </div>
-                    </div>
-
-                    <div class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded" data-competicion="Regions">
-                        <div class="text-center text-md-start" style="min-width: 150px;">
-                            <span class="badge bg-secondary mb-2 px-2 py-1"><i class="fa-solid fa-trophy text-warning me-1"></i>FINAL</span>
-                            <h6 class="text-white mb-1">KLPLG Regions</h6>
-                            <p class="mb-0 text-light opacity-50 small"><i class="fa-regular fa-calendar-check me-1"></i>29 Dic 2025</p>
-                        </div>
-                        
-                        <div class="d-flex align-items-center justify-content-center gap-3 fw-bold fs-4 flex-grow-1">
-                            <span class="text-racing text-end" style="width: 120px;">TW Cantabria</span>
-                            <div class="bg-racing text-dark px-3 py-1 rounded score-box fs-3">6 - 0</div>
-                            <span class="text-start text-light opacity-75" style="width: 120px;">TW Baleares</span>
-                        </div>
-                        
-                        <div class="text-center text-md-end" style="min-width: 120px;">
-                            <button class="btn btn-outline-light btn-sm w-100"><i class="fa-solid fa-chart-simple me-1"></i>Estadísticas</button>
-                        </div>
-                    </div>
-
-                    <div class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded" data-competicion="Regions">
-                        <div class="text-center text-md-start" style="min-width: 150px;">
-                            <span class="badge bg-dark border border-secondary text-light mb-2 px-2 py-1">SEMIFINALES</span>
-                            <h6 class="text-white mb-1">KLPLG Regions- </h6>
-                            <p class="mb-0 text-light opacity-50 small"><i class="fa-regular fa-calendar-check me-1"></i>20 Dic 2025</p>
-                        </div>
-                        
-                        <div class="d-flex align-items-center justify-content-center gap-3 fw-bold fs-4 flex-grow-1" data-competicion="Regions">
-                            <span class="text-light opacity-75 text-end" style="width: 120px;">TW Cantabria </span>
-                            <div class="bg-dark text-white border border-secondary px-3 py-1 rounded fs-3">3 - 0</div>
-                            <span class="text-racing text-start" style="width: 120px;">TW Castilla y Leon</span>
-                        </div>
-                        
-                        <div class="text-center text-md-end" style="min-width: 120px;">
-                            <button class="btn btn-outline-light btn-sm w-100"><i class="fa-solid fa-chart-simple me-1"></i>Estadísticas</button>
-                        </div>
-                    </div>
-
-                    <div class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded" data-competicion="Regions">
-                        <div class="text-center text-md-start" style="min-width: 150px;">
-                            <span class="badge bg-info text-dark mb-2 px-2 py-1">CUARTOS DE FINAL</span>
-                            <h6 class="text-white mb-1">KLPLG Regions</h6>
-                            <p class="mb-0 text-light opacity-50 small"><i class="fa-regular fa-calendar-check me-1"></i>15 Nov 2025</p>
-                        </div>
-                        
-                        <div class="d-flex align-items-center justify-content-center gap-3 fw-bold fs-4 flex-grow-1">
-                            <span class="text-racing text-end" style="width: 120px;">TW Cantabria</span>
-                            <div class="bg-secondary text-white px-3 py-1 rounded fs-3">4 - 2</div>
-                            <span class="text-start text-light opacity-75" style="width: 120px;">TW Islas Canarias</span>
-                        </div>
-                        
-                        <div class="text-center text-md-end" style="min-width: 120px;">
-                            <button class="btn btn-outline-secondary btn-sm w-100" disabled>Sin Datos</button>
-                        </div>
-                    </div>
-
+      <div class="row justify-content-center" id="contenedor-partidos">
+        <div class="col-lg-10">
+          <div class="list-group gap-3">
+            <div
+              class="list-group-item match-card proximo p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded"
+              data-competicion="cup"
+            >
+              <div class="text-center text-md-start" style="min-width: 150px">
+                <span class="badge bg-racing text-dark mb-2 px-2 py-1"
+                  ><i class="fa-regular fa-clock me-1"></i>PRÓXIMO</span
+                >
+                <h6 class="text-white mb-1">KLPLG Cup</h6>
+                <div class="fase-text mb-2">Octavos de final</div>
+                <p class="mb-0 text-light opacity-50 small">
+                  10 Abril - 22:30H
+                </p>
+              </div>
+              <div class="match-row-container fw-bold fs-4">
+                <div class="match-team-left">
+                  <span>TW Racing</span>
+                  <img src="img/escudo.png" class="team-logo" />
                 </div>
+                <div class="match-score">
+                  <div
+                    class="bg-dark px-3 py-1 rounded border border-secondary border-opacity-50 text-light fs-5"
+                  >
+                    VS
+                  </div>
+                </div>
+                <div class="match-team-right">
+                  <img src="img/valencia.png" class="team-logo" />
+                  <span class="span">TW Valencia</span>
+                </div>
+              </div>
+              <div class="text-center text-md-end" style="min-width: 120px">
+                <button
+                  class="btn bg-racing text-dark btn-sm fw-bold w-100"
+                  data-bs-toggle="modal"
+                  data-bs-target="#resumen-partidoValenca"
+                >
+                  Previa
+                </button>
+              </div>
             </div>
+
+            <div
+              class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded"
+              data-competicion="Regions"
+            >
+              <div class="text-center text-md-start" style="min-width: 150px">
+                <span class="badge bg-secondary mb-2 px-2 py-1">FINAL</span>
+                <h6 class="text-white mb-1">KLPLG Regions</h6>
+                <p class="mb-0 text-light opacity-50 small">29 Dic 2025</p>
+              </div>
+              <div class="match-row-container fw-bold fs-4">
+                <div class="match-team-left">
+                  <span>TW Cantabria</span>
+                  <img src="img/cantabria.png" class="team-logo" />
+                </div>
+                <div class="match-score">
+                  <div class="bg-racing text-dark px-3 py-1 rounded fs-3">
+                    6 - 0
+                  </div>
+                </div>
+                <div class="match-team-right">
+                  <img src="img/baleares.png" class="team-logo" />
+                  <span>TW Baleares</span>
+                </div>
+              </div>
+              <div class="text-center text-md-end" style="min-width: 120px">
+                <button
+                  class="btn btn-outline-light btn-sm w-100"
+                  data-bs-toggle="modal"
+                  data-bs-target="#resumen-partido1"
+                >
+                  Resumen
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded"
+              data-competicion="Regions"
+            >
+              <div class="text-center text-md-start" style="min-width: 150px">
+                <span class="badge bg-secondary mb-2 px-2 py-1">SEMIFINAL</span>
+                <h6 class="text-white mb-1">KLPLG League</h6>
+                <p class="mb-0 text-light opacity-50 small">29 Dic 2025</p>
+              </div>
+              <div class="match-row-container fw-bold fs-4">
+                <div class="match-team-left">
+                  <span>TW Racing</span>
+                  <img src="img/escudo.png" class="team-logo" />
+                </div>
+                <div class="match-score">
+                  <div class="bg-racing text-dark px-3 py-1 rounded fs-3">
+                    3 - 0
+                  </div>
+                </div>
+                <div class="match-team-right">
+                  <img src="img/cyl.png" class="team-logo" />
+                  <span>TW Castilla y Leon</span>
+                </div>
+              </div>
+              <div class="text-center text-md-end" style="min-width: 120px">
+                <button
+                  class="btn btn-outline-light btn-sm w-100"
+                  data-bs-toggle="modal"
+                  data-bs-target="#resumen-partido2"
+                >
+                  Resumen
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded"
+              data-competicion="Regions"
+            >
+              <div class="text-center text-md-start" style="min-width: 150px">
+                <span class="badge bg-secondary mb-2 px-2 py-1">CUARTOS</span>
+                <h6 class="text-white mb-1">KLPLG League</h6>
+                <p class="mb-0 text-light opacity-50 small">29 Dic 2025</p>
+              </div>
+              <div class="match-row-container fw-bold fs-4">
+                <div class="match-team-left">
+                  <span>TW Cantabria</span>
+                  <img src="img/escudo.png" class="team-logo" />
+                </div>
+                <div class="match-score">
+                  <div class="bg-racing text-dark px-3 py-1 rounded fs-3">
+                    4 - 2
+                  </div>
+                </div>
+                <div class="match-team-right">
+                  <img src="img/canarias.png" class="team-logo" />
+                  <span>TW Canarias</span>
+                </div>
+              </div>
+              <div class="text-center text-md-end" style="min-width: 120px">
+                <button
+                  class="btn btn-outline-light btn-sm w-100"
+                  data-bs-toggle="modal"
+                  data-bs-target="#resumen-partido3"
+                >
+                  Resumen
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded"
+              data-competicion="Regions"
+            >
+              <div class="text-center text-md-start" style="min-width: 150px">
+                <span class="badge bg-secondary mb-2 px-2 py-1"
+                  >FASE DE GRUPOS</span
+                >
+                <h6 class="text-white mb-1">KLPLG League</h6>
+                <p class="mb-0 text-light opacity-50 small">29 Dic 2025</p>
+              </div>
+              <div class="match-row-container fw-bold fs-4">
+                <div class="match-team-left">
+                  <span>TW Asturias</span>
+                  <img src="img/asturias.png" class="team-logo" />
+                </div>
+                <div class="match-score">
+                  <div class="bg-racing text-dark px-3 py-1 rounded fs-3">
+                    3 - 5
+                  </div>
+                </div>
+                <div class="match-team-right">
+                  <img src="img/cantabria.png" class="team-logo" />
+                  <span>TW Cantabria</span>
+                </div>
+              </div>
+              <div class="text-center text-md-end" style="min-width: 120px">
+                <button
+                  class="btn btn-outline-light btn-sm w-100"
+                  data-bs-toggle="modal"
+                  data-bs-target="#resumen-partido4"
+                >
+                  Resumen
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded"
+              data-competicion="Regions"
+            >
+              <div class="text-center text-md-start" style="min-width: 150px">
+                <span class="badge bg-secondary mb-2 px-2 py-1"
+                  >FASE DE GRUPOS</span
+                >
+                <h6 class="text-white mb-1">KLPLG League</h6>
+                <p class="mb-0 text-light opacity-50 small">29 Dic 2025</p>
+              </div>
+              <div class="match-row-container fw-bold fs-4">
+                <div class="match-team-left">
+                  <span>TW Murcia</span>
+                  <img src="img/murcia.png" class="team-logo" />
+                </div>
+                <div class="match-score">
+                  <div class="bg-racing text-dark px-3 py-1 rounded fs-3">
+                    1 - 5
+                  </div>
+                </div>
+                <div class="match-team-right">
+                  <img src="img/cantabria.png" class="team-logo" />
+                  <span>TW Cantabria</span>
+                </div>
+              </div>
+              <div class="text-center text-md-end" style="min-width: 120px">
+                <button
+                  class="btn btn-outline-light btn-sm w-100"
+                  data-bs-toggle="modal"
+                  data-bs-target="#resumen-partido5"
+                >
+                  Resumen
+                </button>
+              </div>
+            </div>
+            <div
+              class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded"
+              data-competicion="Regions"
+            >
+              <div class="text-center text-md-start" style="min-width: 150px">
+                <span class="badge bg-secondary mb-2 px-2 py-1"
+                  >FASE DE GRUPOS</span
+                >
+                <h6 class="text-white mb-1">KLPLG League</h6>
+                <p class="mb-0 text-light opacity-50 small">29 Dic 2025</p>
+              </div>
+              <div class="match-row-container fw-bold fs-4">
+                <div class="match-team-left">
+                  <span>TW Cantabria</span>
+                  <img src="img/cantabria.png" class="team-logo" />
+                </div>
+                <div class="match-score">
+                  <div
+                    class="bg-secondary text-white px-3 py-1 rounded fs-3 fw-bold"
+                  >
+                    1 - 1
+                  </div>
+                </div>
+                <div class="match-team-right">
+                  <img src="img/andalucia.png" class="team-logo" />
+                  <span>TW Andalucia</span>
+                </div>
+              </div>
+              <div class="text-center text-md-end" style="min-width: 120px">
+                <button
+                  class="btn btn-outline-light btn-sm w-100"
+                  data-bs-toggle="modal"
+                  data-bs-target="#resumen-partido6"
+                >
+                  Resumen
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded"
+              data-competicion="amistoso"
+            >
+              <div class="text-center text-md-start" style="min-width: 150px">
+                <span class="badge bg-secondary mb-2 px-2 py-1"
+                  >ENTRENAMIENTO</span
+                >
+                <h6 class="text-white mb-1">KLPLG Preparacion</h6>
+                <p class="mb-0 text-light opacity-50 small">20 Dic 2025</p>
+              </div>
+              <div class="match-row-container fw-bold fs-4">
+                <div class="match-team-left">
+                  <span>TW Castilla y Leon</span>
+                  <img src="img/cyl.png" class="team-logo" />
+                </div>
+                <div class="match-score">
+                  <div class="bg-racing text-dark px-3 py-1 rounded fs-3">
+                    2 - 6
+                  </div>
+                </div>
+                <div class="match-team-right">
+                  <img src="img/cantabria.png" class="team-logo" />
+                  <span>TW Cantabria</span>
+                </div>
+              </div>
+              <div class="text-center text-md-end" style="min-width: 120px">
+                <button
+                  class="btn btn-outline-light btn-sm w-100"
+                  data-bs-toggle="modal"
+                  data-bs-target="#resumen-partido7"
+                >
+                  Resumen
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="list-group-item match-card p-4 text-white d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 rounded"
+              data-competicion="amistoso"
+            >
+              <div class="text-center text-md-start" style="min-width: 150px">
+                <span class="badge bg-secondary mb-2 px-2 py-1"
+                  >ENTRENAMIENTO</span
+                >
+                <h6 class="text-white mb-1">KLPLG Preparacion</h6>
+                <p class="mb-0 text-light opacity-50 small">20 Dic 2025</p>
+              </div>
+              <div class="match-row-container fw-bold fs-4">
+                <div class="match-team-left">
+                  <span>TW Euskal Herria</span>
+                  <img src="img/eh.png" class="team-logo" />
+                </div>
+                <div class="match-score">
+                  <div class="bg-racing text-dark px-3 py-1 rounded fs-3">
+                    2 - 7
+                  </div>
+                </div>
+                <div class="match-team-right">
+                  <img src="img/cantabria.png" class="team-logo" />
+                  <span>TW Cantabria</span>
+                </div>
+              </div>
+              <div class="text-center text-md-end" style="min-width: 120px">
+                <button
+                  class="btn btn-outline-light btn-sm w-100"
+                  data-bs-toggle="modal"
+                  data-bs-target="#resumen-partido7"
+                >
+                  Resumen
+                </button>
+              </div>
+            </div>
+
+            <!-- ya no mas -->
+          </div>
         </div>
+      </div>
     </main>
 
-    <footer class="text-center py-5 mt-5" style="background-color: #0d0f0e; border-top: 1px solid #2d332f;">
-        <div class="container text-light opacity-75">
-            <div class="d-flex justify-content-center gap-4 mb-4 fs-4">
-                <a href="https://twitter.com/TwRacingCP" target="_blank" class="text-light hover-racing" style="transition: 0.3s;"><i class="fab fa-x-twitter"></i></a>
-                <a href="https://twitch.tv/twcantabria" target="_blank" class="text-light hover-racing" style="transition: 0.3s;"><i class="fab fa-twitch"></i></a>
-                <a href="https://www.youtube.com/@TWCantabria" target="_blank" class="text-light hover-racing" style="transition: 0.3s;"><i class="fab fa-youtube"></i></a>
+    <div
+      class="modal fade"
+      id="resumen-partido1"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div
+          class="modal-content modal-content-racing text-white border-racing"
+        >
+          <div class="modal-header border-secondary border-opacity-25">
+            <h5 class="modal-title fw-bold text-racing">
+              RESUMEN: TW CANTABRIA vs TW BALEARES
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body p-4">
+            <div class="row g-4">
+              <div class="col-xl-5 col-lg-6">
+                <h6 class="text-center mb-3 fw-bold text-uppercase">
+                  Alineación <span class="text-racing">4-2-1-3</span>
+                </h6>
+                <div class="pitch shadow-lg">
+                  <div class="pitch-lines"></div>
+                  <div class="player-dot" style="bottom: 5%; left: 50%">
+                    1<span class="player-name">AdriViera_02</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 20%; left: 15%">
+                    3<span class="player-name">erluiso13</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 18%; left: 38%">
+                    4<span class="player-name">JMorgu</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 18%; left: 62%">
+                    5<span class="player-name">Jav1Gonzalez</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 20%; left: 85%">
+                    2<span class="player-name">HyperHector05</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 40%; left: 35%">
+                    8<span class="player-name">PedroB__02</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 40%; left: 65%">
+                    6<span class="player-name">escobedo2010</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 58%; left: 50%">
+                    10<span class="player-name">Bools_10</span>
+                  </div>
+                  <div class="player-dot" style="top: 20%; left: 20%">
+                    7<span class="player-name">koshidalgo15</span>
+                  </div>
+                  <div class="player-dot" style="top: 10%; left: 50%">
+                    11<span class="player-name">zSaanti--</span>
+                  </div>
+                  <div class="player-dot" style="top: 20%; left: 80%">
+                    69<span class="player-name">darioobg_9</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-7 col-lg-6">
+                <h6
+                  class="fw-bold mb-3 border-start border-racing ps-2 text-uppercase"
+                >
+                  Estadísticas
+                </h6>
+                <div class="small mb-4">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Posesión</span><span>65% - 35%</span>
+                  </div>
+                  <div
+                    class="progress mb-3"
+                    style="height: 6px; background: #2d332f"
+                  >
+                    <div
+                      class="progress-bar bg-racing"
+                      style="width: 65%"
+                    ></div>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Tiros</span><span>14 - 3</span>
+                  </div>
+                  <div
+                    class="progress"
+                    style="height: 6px; background: #2d332f"
+                  >
+                    <div
+                      class="progress-bar bg-racing"
+                      style="width: 80%"
+                    ></div>
+                  </div>
+                </div>
+                <h6
+                  class="fw-bold mb-3 border-start border-racing ps-2 text-uppercase"
+                >
+                  Crónica
+                </h6>
+                <div
+                  class="timeline-container bg-dark bg-opacity-50 p-3 rounded border border-secondary border-opacity-25"
+                >
+                  <div class="timeline-event d-flex align-items-start mb-2">
+                    <div class="event-time badge bg-racing text-dark me-2">
+                      10'
+                    </div>
+                    <div class="event-desc">
+                      <i class="fa-solid fa-futbol me-1"></i>
+                      <strong>GOL!</strong> zSaanti
+                    </div>
+                  </div>
+                  <div class="timeline-event d-flex align-items-start mb-2">
+                    <div class="event-time badge bg-secondary me-2">58'</div>
+                    <div class="event-desc">
+                      <i class="fa-solid fa-square text-warning me-1"></i>
+                      Amarilla - JMorgu
+                    </div>
+                  </div>
+                  <div
+                    class="mt-4 pt-3 border-top border-secondary border-opacity-25"
+                  >
+                    <a
+                      href="https://www.virtualpronetwork.com/web/app/match/751312"
+                      target="_blank"
+                      class="btn btn-sm btn-dark border-racing text-racing fw-bold w-100 mb-2"
+                    >
+                      <i class="fa-solid fa-external-link-alt me-2"></i
+                      >ESTADÍSTICAS COMPLETAS VPN
+                    </a>
+                    <a
+                      href="https://www.youtube.com/watch?v=KSOlk1dBE6Q"
+                      target="_blank"
+                      class="btn btn-sm btn-dark border-racing text-racing fw-bold w-100"
+                    >
+                      <i class="fa-brands fa-youtube me-2"></i>RESUMEN EN
+                      YOUTUBE
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p class="mb-0 fw-bold">© 2026 TW Racing eSports</p>
+          </div>
         </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="resumen-partido2"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div
+          class="modal-content modal-content-racing text-white border-racing"
+        >
+          <div class="modal-header border-secondary border-opacity-25">
+            <h5 class="modal-title fw-bold text-racing">
+              RESUMEN: TW CANTABRIA vs TW CASTILLA Y LEON
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body p-4">
+            <div class="row g-4">
+              <div class="col-xl-5 col-lg-6">
+                <h6 class="text-center mb-3 fw-bold text-uppercase">
+                  Alineación <span class="text-racing">4-2-1-3</span>
+                </h6>
+                <div class="pitch shadow-lg">
+                  <div class="pitch-lines"></div>
+                  <div class="player-dot" style="bottom: 5%; left: 50%">
+                    1<span class="player-name">AdriViera_02</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 20%; left: 15%">
+                    3<span class="player-name">erluiso13</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 18%; left: 38%">
+                    4<span class="player-name">JMorgu</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 18%; left: 62%">
+                    5<span class="player-name">Jav1Gonzalez</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 20%; left: 85%">
+                    2<span class="player-name">HyperHector05</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 40%; left: 35%">
+                    8<span class="player-name">PedroB__02</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 40%; left: 65%">
+                    6<span class="player-name">escobedo2010</span>
+                  </div>
+                  <div class="player-dot" style="bottom: 58%; left: 50%">
+                    10<span class="player-name">Bools_10</span>
+                  </div>
+                  <div class="player-dot" style="top: 20%; left: 20%">
+                    7<span class="player-name">koshidalgo15</span>
+                  </div>
+                  <div class="player-dot" style="top: 10%; left: 50%">
+                    11<span class="player-name">zSaanti--</span>
+                  </div>
+                  <div class="player-dot" style="top: 20%; left: 80%">
+                    69<span class="player-name">darioobg_9</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-7 col-lg-6">
+                <h6
+                  class="fw-bold mb-3 border-start border-racing ps-2 text-uppercase"
+                >
+                  Estadísticas
+                </h6>
+                <div class="small mb-4">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Posesión</span><span>65% - 35%</span>
+                  </div>
+                  <div
+                    class="progress mb-3"
+                    style="height: 6px; background: #2d332f"
+                  >
+                    <div
+                      class="progress-bar bg-racing"
+                      style="width: 65%"
+                    ></div>
+                  </div>
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Tiros</span><span>14 - 3</span>
+                  </div>
+                  <div
+                    class="progress"
+                    style="height: 6px; background: #2d332f"
+                  >
+                    <div
+                      class="progress-bar bg-racing"
+                      style="width: 80%"
+                    ></div>
+                  </div>
+                </div>
+                <h6
+                  class="fw-bold mb-3 border-start border-racing ps-2 text-uppercase"
+                >
+                  Crónica
+                </h6>
+                <div
+                  class="timeline-container bg-dark bg-opacity-50 p-3 rounded border border-secondary border-opacity-25"
+                >
+                  <div class="timeline-event d-flex align-items-start mb-2">
+                    <div class="event-time badge bg-racing text-dark me-2">
+                      10'
+                    </div>
+                    <div class="event-desc">
+                      <i class="fa-solid fa-futbol me-1"></i>
+                      <strong>GOL!</strong> zSaanti
+                    </div>
+                  </div>
+                  <div class="timeline-event d-flex align-items-start mb-2">
+                    <div class="event-time badge bg-secondary me-2">58'</div>
+                    <div class="event-desc">
+                      <i class="fa-solid fa-square text-warning me-1"></i>
+                      Amarilla - JMorgu
+                    </div>
+                  </div>
+                  <div
+                    class="mt-4 pt-3 border-top border-secondary border-opacity-25"
+                  >
+                    <a
+                      href="https://www.virtualpronetwork.com/web/app/match/751312"
+                      target="_blank"
+                      class="btn btn-sm btn-dark border-racing text-racing fw-bold w-100 mb-2"
+                    >
+                      <i class="fa-solid fa-external-link-alt me-2"></i
+                      >ESTADÍSTICAS COMPLETAS VPN
+                    </a>
+                    <a
+                      href="https://www.youtube.com/watch?v=KSOlk1dBE6Q"
+                      target="_blank"
+                      class="btn btn-sm btn-dark border-racing text-racing fw-bold w-100"
+                    >
+                      <i class="fa-brands fa-youtube me-2"></i>RESUMEN EN
+                      YOUTUBE
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer
+      class="text-center py-5 mt-5"
+      style="background-color: #0d0f0e; border-top: 1px solid #2d332f"
+    >
+      <div class="container text-light opacity-75">
+        <div class="d-flex justify-content-center gap-4 mb-4 fs-4">
+          <a
+            href="https://twitter.com/TwRacingCP"
+            target="_blank"
+            class="text-light hover-racing"
+            ><i class="fab fa-x-twitter"></i
+          ></a>
+          <a
+            href="https://twitch.tv/twcantabria"
+            target="_blank"
+            class="text-light hover-racing"
+            ><i class="fab fa-twitch"></i
+          ></a>
+          <a
+            href="https://www.youtube.com/@TWCantabria"
+            target="_blank"
+            class="text-light hover-racing"
+            ><i class="fab fa-youtube"></i
+          ></a>
+        </div>
+        <p class="mb-0 fw-bold">© 2026 TW Racing</p>
+      </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
-        function filtrarPartidos(competicion, botonPulsado) {
-            // 1. Cambiar el color del botón activo
-            let botones = document.querySelectorAll('.filter-btn');
-            botones.forEach(btn => btn.classList.remove('active'));
-            botonPulsado.classList.add('active');
+      function filtrarPartidos(competicion, botonPulsado) {
+        let botones = document.querySelectorAll(".filter-btn");
+        botones.forEach((btn) => btn.classList.remove("active"));
+        botonPulsado.classList.add("active");
 
-            // 2. Filtrar los partidos
-            let partidos = document.querySelectorAll('.match-card');
-            partidos.forEach(partido => {
-                // Si pulsamos "todos" o si el partido tiene la etiqueta de la competición que buscamos
-                if (competicion === 'todos' || partido.getAttribute('data-competicion') === competicion) {
-                    partido.style.display = 'flex'; // Usamos flex porque es su estilo base en Bootstrap
-                } else {
-                    partido.style.display = 'none'; // Ocultamos los que no coinciden
-                }
-            });
-        }
+        let partidos = document.querySelectorAll(".match-card");
+        partidos.forEach((partido) => {
+          if (
+            competicion === "todos" ||
+            partido.getAttribute("data-competicion") === competicion
+          ) {
+            partido.classList.remove("d-none");
+            partido.classList.add("d-flex");
+          } else {
+            partido.classList.remove("d-flex");
+            partido.classList.add("d-none");
+          }
+        });
+      }
     </script>
-</body>
+  </body>
 </html>
