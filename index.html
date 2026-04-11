@@ -188,6 +188,18 @@
       .text-racing {
         color: #00d26a !important;
       }
+      /* --- CSS para forzar el recorte central en móviles --- */
+      /* Altura por defecto para PC */
+      .banner-movil-altura {
+        height: 450px;
+      }
+
+      /* Cuando la pantalla sea menor de 768px (móvil) */
+      @media (max-width: 767px) {
+        .banner-movil-altura {
+          height: 150px; /* Reducimos la altura a 250px en móvil para forzar el recorte central */
+        }
+      }
     </style>
   </head>
   <body>
@@ -243,7 +255,7 @@
     </nav>
 
     <div class="container-fluid p-0">
-      <div class="position-relative w-100" style="height: 450px">
+      <div class="position-relative w-100 banner-movil-altura">
         <img
           src="img/aura2.png"
           class="img-fluid w-100 h-100"
@@ -627,7 +639,7 @@
             ><i class="fab fa-youtube"></i
           ></a>
         </div>
-        <p class="mb-0 fw-bold">© 2026 TW Racing eSports</p>
+        <p class="mb-0 fw-bold">© 2026 TW Racing</p>
         <small>Representando al Racing de Santander en Clubes Pro</small>
       </div>
     </footer>
